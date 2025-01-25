@@ -6,3 +6,6 @@ lib/
 
 moviescrapper/moviescrapper/__pycache__/
 moviescrapper/moviescrapper/spiders/__pycache__/
+
+
+share/
