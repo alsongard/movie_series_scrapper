@@ -2,3 +2,7 @@ bin/
 lib64/
 lib/
 /pyvenv.cfg
+
+
+moviescrapper/moviescrapper/__pycache__
+moviescrapper/moviescrapper/spiders/__pycache__
