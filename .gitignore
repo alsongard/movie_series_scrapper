@@ -9,3 +9,7 @@ moviescrapper/moviescrapper/spiders/__pycache__/
 
 
 share/
+etc/ 
+
+
+/.env
