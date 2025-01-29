@@ -7,10 +7,23 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+
 BOT_NAME = "moviescrapper"
 
 SPIDER_MODULES = ["moviescrapper.spiders"]
 NEWSPIDER_MODULE = "moviescrapper.spiders"
+
+SCRAPEOPS_API_KEY= os.getenv("SCRAPEOPS_API_KEY")
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'https://headers.scrapeops.io/v1/user-agents'
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 50 # SET NUMBER OF AGENTS YOU WANT
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -50,9 +63,12 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "moviescrapper.middlewares.MoviescrapperDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   "moviescrapper.middlewares.MoviescrapperDownloaderMiddleware": 543,
+   "moviescrapper.middlewares.ScrapeOpsFakeUserAgentMiddleWare": 300,
+
+
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
