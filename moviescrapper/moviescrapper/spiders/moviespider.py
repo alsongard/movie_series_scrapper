@@ -20,6 +20,17 @@ class MoviespiderSpider(scrapy.Spider):
             }
 
         next_page = response.xpath("//section/following-sibling::*[1]/ul/li[11]/a/@href").get()
-        if next_page is not None:
-            next_page_url = "https://yts.mx" + next_page
+        if next_page is None:
+            next_page = response.xpath("//section/following-sibling::*[1]/ul/li[12]/a/@href").get()
+
+            
+        if next_page:
+            next_page_url = response.urljoin(next_page)
+            self.log(f"Print next page : {next_page_url}")
             yield response.follow(next_page_url, callback=self.parse) 
+
+
+
+
+# /browse-movies?page=4
+#  https://yts.mx/browse-movies?page=4
