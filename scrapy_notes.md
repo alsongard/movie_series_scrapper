@@ -101,6 +101,7 @@ https://yts.mx/browse-movies?page=2 // this works click to
 yts.mx has a total of yts.mx 3247 pages where by each page has 20 movies excepts of the last which has 17  movies
 Calculate total movies:
 ```
+
 echo $((3246 * 20)) = 64920
 echo $((64920 + 17))
 https://yts.mx/movies/aloft-2014
@@ -149,3 +150,73 @@ def parse(self, response):
         self.log(f"Print next page : {next_page_url}")
         yield response.follow(next_page_url, callback=self.parse) 
 ```
+
+
+items.py
+items.py is a file that is generated once you create a scrapy project.
+Aids in identifying errors such as misspelled words when working with database.
+
+In items.py do the following:
+- create a ``class MovieItem(scrapy.Item)``
+- add the fields as shown:
+
+```
+class MovieItems(scrapy.Item):
+    movie_name = scrapy.field()
+    movie_rating = scrapy.Field()
+    movie_url = scrapy.Field()
+    movie_release_year = scrapy.Field()
+    movie_category = scrapy.Field() 
+```
+
+In your spiderfile ``projectNamespider.py`` file add the following:
+```
+import MovieItems from moviescrapper.items
+class Moviespiderspider(scrapy.Spider):
+def parse(self, response):
+    movies = response.css("div.browse-movie-wrap")
+
+    for movie in movies:
+        movie_item = MovieItems()
+        movie_item["movie_name"] =  movie.css("div.browse-movie-bottom  a::text").get()
+        movie_item["movie_rating"] =  response.css("h4.rating::text").get()
+        movie_item["movie_url"] = response.css("div.browse-movie-bottom a::attr(href)").get()
+        movie_item["movie_release_year"] = response.css("div.browse-movie-bottom div::text").get()
+        movie_item["movie_category"] =  response.xpath("//figcaption/h4[not(@class='rating')]/text()").get()
+        yield movie_item
+
+    next_page = response.xpath("//section/following-sibling::*[1]/ul/li[11]/a/@href").get()
+        if next_page is None:
+            next_page = response.xpath("//section/following-sibling::*[1]/ul/li[12]/a/@href").get()
+
+            
+        if next_page:
+            next_page_url = response.urljoin(next_page)
+            self.log(f"Print next page : {next_page_url}")
+            yield response.follow(next_page_url, callback=self.parse) 
+
+```
+
+## PIPELINES
+pipelines are used for data post processing
+Go to pipelines file and do the following:
+```
+class MoviescrapperPipeline:
+    def process_item(self, item, spider):
+
+        adapter = ItemAdapter(item)
+
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            if field_name == "movie_rating":
+                value = adapter.get(field_name)
+                if value is not None:
+                    new_value= value.replace("/ 10", "").strip()
+                    movie_rate = float(new_value) # perform explicit conversion
+                    adapter[field_name] = movie_rate # set value back to the given field_name
+
+        return item
+
+```
+**Go to setting files and uncomment the PIPELINES**
+
