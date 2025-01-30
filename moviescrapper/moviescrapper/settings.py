@@ -7,7 +7,6 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-
 import os
 from dotenv import load_dotenv
 
@@ -28,7 +27,6 @@ SCRAPEOPS_NUM_RESULTS = 50 # SET NUMBER OF AGENTS YOU WANT
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "moviescrapper (+http://www.yourdomain.com)"
-
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
@@ -66,8 +64,6 @@ ROBOTSTXT_OBEY = False
 DOWNLOADER_MIDDLEWARES = {
    "moviescrapper.middlewares.MoviescrapperDownloaderMiddleware": 543,
    "moviescrapper.middlewares.ScrapeOpsFakeUserAgentMiddleWare": 300,
-
-
 }
 
 # Enable or disable extensions
@@ -78,9 +74,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "moviescrapper.pipelines.MoviescrapperPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "moviescrapper.pipelines.MoviescrapperPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
