@@ -1,3 +1,15 @@
+# MovieScrapper
+
+MovieScrapper is a Scrapy project designed to scrape movie data from [YTS.mx](https://yts.mx/).
+
+## Setup Instructions
+
+### Create and Activate Virtual Environment
+
+1. **Create a virtual environment:**
+```sh
+python3 -m venv myenv
+
 - create environment
 python3 -m venv directoryname
 
