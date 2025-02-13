@@ -57,6 +57,9 @@ The Streamlit app provides a user-friendly interface to visualize and analyze th
 - Filtering movies by category, rating, and release year
 - Visualizing data trends and distributions
 
+[streamlit-movie_streamlit-2025-02-13-03-02-43.webm](https://github.com/user-attachments/assets/0e6be360-a233-4c94-9120-306c3dd3378e)
+
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
