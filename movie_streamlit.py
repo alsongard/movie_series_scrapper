@@ -28,7 +28,7 @@ st.text(f"""Movie Ratings \n \t Highest Rating: {highest_rating} \n \t Lowest Ra
 
 
 # get top movies
-st.write("TOP BEST MOVIES")
+st.write("TOP BEST MOVIES WITH  RATINGS OF 8 AND ABOVE")
 best_movies_df = clean_data_df[clean_data_df["movie_rating"] >= 8].reset_index(drop=True)
 # best_movies_df
 best_movies_df = best_movies_df.sort_values(by=["movie_rating"], ascending=False).reset_index(drop=True)
@@ -39,6 +39,21 @@ st.write("The chart belows shows the which movie category has the highest number
 # st.write(best_movies_df["movie_category"].value_counts())
 
 best_movies_category_ratings = best_movies_df["movie_category"].value_counts().rename_axis('movie_category').reset_index(name="count")
-st.bar_chart(best_movies_category_ratings, y="count", x="movie_category", y_label="Highest Number")
+st.bar_chart(best_movies_category_ratings,x="movie_category", x_label="Highest Number of Movies", y_label="Movie Category", horizontal=True)
 best_movies_category_ratings
 st.write("You have 8 movies in the category ACTION that have a rating of above 8")
+
+
+## MOVIE RATINGS FROM 5 TO 7.9
+st.write("# Movie ratings from 5 to 7.9")
+mid_range_movies_df = clean_data_df[clean_data_df["movie_rating"].between(5, 7.9)].reset_index(drop=True)
+# mid_range_movies_df
+# check datatype of movie_release_year
+# st.text(f"Data type of column movie_release_year is {mid_range_movies_df[""]}")
+mid_range_movies_sorted_df = mid_range_movies_df.sort_values(by=["movie_rating"],ascending=False)
+mid_range_movies_sorted_df
+
+st.write("The chart belows shows the which movie category has the highest number of movies with high ratings.")
+mid_range_category_ratings = mid_range_movies_sorted_df["movie_category"].value_counts().rename_axis('movie_category').reset_index(name="count")
+mid_range_category_ratings
+st.bar_chart(mid_range_category_ratings,x="movie_category", x_label="Highest Number of Movies", y_label="Movie Category", horizontal=True)
