@@ -1,4 +1,6 @@
 import scrapy
+import os
+import pandas as pd
 from moviescrapper.items import MovieItem
 class MoviespiderSpider(scrapy.Spider):
     name = "moviespider"
@@ -6,12 +8,14 @@ class MoviespiderSpider(scrapy.Spider):
     start_urls = ["https://yts.mx/browse-movies"]
     page_count = 0
     max_count = 30
+    csv_file = "/home/alson-kali/PROGRAMMING/movie_series_scrapper/moviescrapper/new_movies.csv"
 
     def parse(self, response):
 
         # get all movies
         movies = response.css("div.browse-movie-wrap")
             
+        new_data = []
         for movie in movies:
             movie_item = MovieItem()
             movie_item["movie_name"] = movie.css("div.browse-movie-bottom  a::text").get()
@@ -19,8 +23,11 @@ class MoviespiderSpider(scrapy.Spider):
             movie_item["movie_url"] = movie.css("div.browse-movie-bottom a::attr(href)").get()
             movie_item["movie_release_year"] = movie.css("div.browse-movie-bottom div::text").get()
             movie_item["movie_category"] = movie.xpath("//figcaption/h4[not(@class='rating')]/text()").get()
-            yield movie_item  
+            
+            new_data.append(movie_item)
 
+
+        self.append_to_csv(new_data)
         # increase the page count 
         self.page_count += 1
         self.log(f"Scraped  {self.page_count} pages")
@@ -50,6 +57,19 @@ class MoviespiderSpider(scrapy.Spider):
             yield response.follow(next_page_url, callback=self.parse) 
 
 
+
+    def append_to_csv(self, new_data):
+        """Appends new data to CSV, avoiding duplicates"""
+        df_new = pd.DataFrame(new_data)
+
+        if os.path.exists(self.csv_file):
+            data_existing_df =  pd.read_csv(self.csv_file)
+            data_combined_df = pd.concat([data_existing_df, df_new]).drop_duplicates(subset=["movie_name"], keep="first")
+        else:
+            data_combined_df = df_new
+        
+        data_combined_df.to_csv("self.csv_file", index=False)
+        self.log(f"Saved {len(data_combined_df)} to total  unique movies to  {self.csv_file}")
 
 
         # movie_item = MovieItem()
