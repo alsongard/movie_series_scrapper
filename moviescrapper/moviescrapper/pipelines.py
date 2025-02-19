@@ -18,7 +18,7 @@ class MoviescrapperPipeline:
             if field_name == "movie_rating":
                 value = adapter.get(field_name)
                 if value is not None:
-                    new_value= value.replace("/ 10", "").strip()
+                    new_value= value.replace(" / 10", "").strip()
                     movie_rate = float(new_value)
                     adapter[field_name] = movie_rate
 
