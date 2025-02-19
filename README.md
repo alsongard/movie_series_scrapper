@@ -1,3 +1,6 @@
+# YTS MOVIE SCRAPPER AND ANALYZER USING STREAMLIT
+
+[![wakatime](https://wakatime.com/badge/user/ca37100b-7f0f-4ae1-947c-ff595165e688/project/08ce1bb1-8e14-4eda-830c-a0dbd259b83b.svg)](https://wakatime.com/badge/user/ca37100b-7f0f-4ae1-947c-ff595165e688/project/08ce1bb1-8e14-4eda-830c-a0dbd259b83b)
 
 ## Installation
 
