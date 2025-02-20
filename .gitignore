@@ -1,15 +1,13 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
 bin/
-lib64/
+\.vscode/
 lib/
+include/
+etc/
+lib64/
+share/
 /pyvenv.cfg
-
-
+.\env
 moviescrapper/moviescrapper/__pycache__/
 moviescrapper/moviescrapper/spiders/__pycache__/
-
-
-share/
-etc/ 
-
-
-/.env
