@@ -3,7 +3,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import altair as alt
-st.write("# YTS.MX MOVIE RATINGS")
+
+st.logo(
+    image="https://yts.mx/assets/images/website/logo-YTS.svg",
+    size="large"
+)
+st.sidebar.write("YTS.MX scrapper analyzer")
+user_options = ["year", "category"]
+entered_option = st.sidebar.selectbox("Select movie based on :", user_options)
+st.write("### YTS.MX MOVIES")
 
 
 data_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
@@ -55,6 +63,23 @@ st.text(f"""Movie Ratings \n \t Highest Rating: {highest_rating} \n \t Lowest Ra
 # check the number of  ratings for each rate using value_counts
 # st.write(clean_data_df["movie_rating"].value_counts())
 
+movie_categories = ["Action", "Drama", "Comedy", "Horror", "Adventure", "Crime", "Sci-Fi", "Documentary"]
+if entered_option == "year":
+    movie_data_year_based_df = clean_data_df.sort_values(by=["movie_release_year"], ascending=False).reset_index(drop=True)
+    movie_data_year_based_df
+
+else:
+    category_entered = st.sidebar.selectbox("Select the category of the movie you wish to view:", movie_categories)
+    movie_data_category_based_df = clean_data_df[clean_data_df["movie_category"] == category_entered].reset_index(drop=True)
+    
+    yes_no_options = ["yes", "no"]
+    two_option_answer = st.sidebar.selectbox(f"Get movies with highest rating in {category_entered}", yes_no_options)
+
+    if two_option_answer == "yes":
+        movie_data_category_sorted_based_df = movie_data_category_based_df.sort_values(by=["movie_rating"], ascending=False).reset_index(drop=True)
+        movie_data_category_sorted_based_df
+    else:
+        movie_data_category_based_df
 
 # get top movies
 st.write("TOP BEST MOVIES WITH  RATINGS OF 8 AND ABOVE")
