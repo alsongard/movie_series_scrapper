@@ -13,21 +13,23 @@ user_options = ["year", "category"]
 entered_option = st.sidebar.selectbox("Select movie based on :", user_options)
 st.write("### YTS.MX MOVIES")
 
-
+# ultimatum file which i added movies for first scrapy and second scrapy
 data_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
 
 # st.write("data_df from /moviescrapper/data/all_movie_data.csv")
 data_df.drop(data_df.columns[data_df.columns.str.contains('Unnamed')], axis=1, inplace=True) # drop Unnamed column
 # data_df
 
-# get data from previous file:
-get_new_data_daily_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
+# get data from new file:
+# get_new_data_daily_df = pd.read_csv("./moviescrapper/data/new_movies_data.csv")
+get_new_data_daily_df = pd.read_csv("./moviescrapper/data/new_movies_data.csv")
+
 # st.write("Getting data from /moviescrapper/data/all_movie_data.csv")
 get_new_data_daily_df.drop(get_new_data_daily_df.columns[get_new_data_daily_df.columns.str.contains("Unnamed")], axis=1, inplace=True)
 # get_new_data_daily_df
 
 
-# combine database
+# combine datasets of old ultimatum and newly generated data
 new_data_df = pd.concat([get_new_data_daily_df, data_df], ignore_index=True) # for ultimate_backup_file
 # new_data_df
 
