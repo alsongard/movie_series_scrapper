@@ -20,8 +20,8 @@ data_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
 data_df.drop(data_df.columns[data_df.columns.str.contains('Unnamed')], axis=1, inplace=True) # drop Unnamed column
 # data_df
 
-# get data from previous file:
-get_new_data_daily_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
+# get data from new file:
+get_new_data_daily_df = pd.read_csv("./moviescrapper/data/new_movies_data.csv")
 # st.write("Getting data from /moviescrapper/data/all_movie_data.csv")
 get_new_data_daily_df.drop(get_new_data_daily_df.columns[get_new_data_daily_df.columns.str.contains("Unnamed")], axis=1, inplace=True)
 # get_new_data_daily_df
@@ -43,7 +43,7 @@ nan_rows = new_data_df[new_data_df.isna().any(axis=1)]
 clean_data_df = new_data_df.dropna()
 # clean_data_df.to_csv("./moviescrapper/data/all_movie_data.csv") added data to ultime_backup_file
 ## GET NUMBER OF DUPLICATES
-duplicated = clean_data_df.duplicated().value_counts()
+# duplicated = clean_data_df.duplicated().value_counts()
 
 clean_data_df = clean_data_df.drop_duplicates()
 
