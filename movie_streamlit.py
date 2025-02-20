@@ -6,16 +6,45 @@ import altair as alt
 st.write("# YTS.MX MOVIE RATINGS")
 
 
-data_df = pd.read_csv("./moviescrapper/new_movies.csv")
+data_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
 
+# st.write("data_df from /moviescrapper/data/all_movie_data.csv")
+data_df.drop(data_df.columns[data_df.columns.str.contains('Unnamed')], axis=1, inplace=True) # drop Unnamed column
+# data_df
+
+# get data from previous file:
+get_new_data_daily_df = pd.read_csv("./moviescrapper/data/all_movie_data.csv")
+# st.write("Getting data from /moviescrapper/data/all_movie_data.csv")
+get_new_data_daily_df.drop(get_new_data_daily_df.columns[get_new_data_daily_df.columns.str.contains("Unnamed")], axis=1, inplace=True)
+# get_new_data_daily_df
+
+
+# combine database
+new_data_df = pd.concat([get_new_data_daily_df, data_df], ignore_index=True) # for ultimate_backup_file
+# new_data_df
+
+# st.write("NEW_DATA_DF")
+# new_data_df = new_data_df.drop("Unnamed", axis=0)
+# new_data_df.columns
 # st.write(data_df["movie_rating"].dtype)
-nan_rows = data_df[data_df.isna().any(axis=1)]
-# st.write(f"rows with nan valuesn : {len(nan_rows)} ") # 21
 
-# st.write(nan_rows)
+nan_rows = new_data_df[new_data_df.isna().any(axis=1)]
+# st.write(f"rows with nan valuesn : {len(nan_rows)} ") # 53
 
-clean_data_df = data_df.dropna()
-# clean_data_df
+## CLEAN DATAFRAME
+clean_data_df = new_data_df.dropna()
+# clean_data_df.to_csv("./moviescrapper/data/all_movie_data.csv") added data to ultime_backup_file
+## GET NUMBER OF DUPLICATES
+duplicated = clean_data_df.duplicated().value_counts()
+
+clean_data_df = clean_data_df.drop_duplicates()
+
+
+
+# check datatypes
+# column_data_types = clean_data_df.dtypes
+# column_data_types
+
 
 ## get maximum values
 highest_rating = clean_data_df["movie_rating"].max()
