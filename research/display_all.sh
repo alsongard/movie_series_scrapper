@@ -1,14 +1,31 @@
 #!/bin/bash
 cd /home/alson-kali/PROGRAMMING/movie_series_scrapper
 source bin/activate
-cd moviescrapper
-scrapy crawl moviespider
+cd moviescrapper/data/
 
+path=/home/alson-kali/PROGRAMMING/movie_series_scrapper/moviescrapper/data
+# this echos the entire path(absolute) for each file
+for entry in "$path"/*
+do
+    echo $entry
+done
 
-:'
-# bash scripting
-bash scripting is a file that contain multiple commands that are executed line by line by the bash program.
+working_directory=`pwd`
+echo "Working directory is ${working_directory}"
 
-shell: a command that provides a command line interface for interacting with the operating system.
-Bash: One of the commonly used Unix/Linux shell is bash ?? questionable
-'
+#  will be using listing solution
+myfiles=`ls *.csv`
+for eachFile in $myfiles
+do
+    if [[ $eachFile == "new_movies_data.csv" ]]; then
+        rm $eachFile
+    fi
+
+done
+
+echo "scrapy crawl moviespider -o new_movies_data.csv"
+scrapy crawl moviespider -o new_movies_data.csv
+
+# git add . 
+# git commit -m "new movie data added"
+# git push 
