@@ -152,6 +152,9 @@ match movie_category:
 
 # st.text(f"Movie category entered is {movie_result}")
 
+# get all years in the dataframe
+st.write(clean_data_df["movie_release_year"].value_counts())
+
 if movie_result == False:
     st.write("Select an appropriate movie category number")
 else:
