@@ -1,5 +1,8 @@
 # YTS MOVIE SCRAPPER AND ANALYZER USING STREAMLIT
 
+## Project Description  
+A comprehensive web scraping and data analysis application that extracts movie data from YTS.MX and provides an interactive dashboard for insightful visualizations. This project combines web scraping capabilities with an intuitive Streamlit interface to help users discover trending movies, analyze ratings, and explore genres.
+
 [![wakatime](https://wakatime.com/badge/user/ca37100b-7f0f-4ae1-947c-ff595165e688/project/08ce1bb1-8e14-4eda-830c-a0dbd259b83b.svg)](https://wakatime.com/badge/user/ca37100b-7f0f-4ae1-947c-ff595165e688/project/08ce1bb1-8e14-4eda-830c-a0dbd259b83b)
 
 ## Installation
